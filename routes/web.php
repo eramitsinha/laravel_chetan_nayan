@@ -33,5 +33,14 @@ Route::post('save',[UserController::class,'save']);
 Route::get('show',[UserController::class,'show']);
 
 
-// collections
-Route::get('collect',[UserController::class,'collect']);
+// delete
+Route::get('delete/{id}',[UserController::class,'delete']);
+
+
+// login
+Route::get('login',[UserController::class,'login']);
+Route::post('login_check',[UserController::class,'login_check']);
+
+Route::get('dashboard',[UserController::class,'dashboard']);
+
+?>
