@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -66,26 +67,48 @@ class UserController extends Controller
 
     }
 
-
-
-
-
-
-
-
-    function collect()
+    function login()
     {
-       $collection = collect([["name"=>"Zahid", "age"=>22], ["name"=>"Amit", "age"=>33]]);
-
-       if($collection->contains('name','XXX'))
-       {
-           echo 'Record Found';
-       }
-       else
-       {
-           echo 'Record not Found';
-       }
-       echo "<br>";
-       echo $collection->sortBy('name');
+        return view("login");
     }
+
+    function login_check(Request $request)
+    {
+        // fetch form values
+        $email = $request->email;
+        $password = $request->password;
+
+        $k = Auth::attempt(['email' => $email, 'password' => $password]);
+
+        if($k)
+        {
+            return redirect("dashboard");
+        }
+        else
+        {
+            echo "Invalid Login";
+        }
+
+    }
+
+    function delete($id)
+    {
+        // delete from users where id='$id'
+        User::find($id)->delete();
+
+        return redirect("show"); // go to "show" route
+    }
+
+
+    function dashboard()
+    {
+        return view("dashboard");
+    }
+
+
+
+
+
+
+   
 }
