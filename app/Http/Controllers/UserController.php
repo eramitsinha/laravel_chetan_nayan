@@ -47,10 +47,16 @@ class UserController extends Controller
         $obj->email = $e1;
         $obj->password = $p1;
         $obj->mobile = $m1;
+        $obj->user_role = 2; // teacher
         $obj->save(); // save() is built-in function
 
         echo "Inserted Successfully";
 
+    }
+
+    function all()
+    {
+        return view("all-teachers");
     }
 
     function show()
@@ -65,6 +71,12 @@ class UserController extends Controller
         // compact() is used to transfer data from Controller to View.
         // return view('view name',compact('variable name'))
 
+    }
+
+    function logout()
+    {
+        Auth::logout();
+        return redirect("login");
     }
 
     function login()
@@ -110,5 +122,19 @@ class UserController extends Controller
 
 
 
-   
+    function collect()
+    {
+       $collection = collect([["name"=>"Zahid", "age"=>22], ["name"=>"Amit", "age"=>33]]);
+
+       if($collection->contains('name','XXX'))
+       {
+           echo 'Record Found';
+       }
+       else
+       {
+           echo 'Record not Found';
+       }
+       echo "<br>";
+       echo $collection->sortBy('name');
+    }
 }
