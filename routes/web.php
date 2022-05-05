@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\MyMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +40,14 @@ Route::get('delete/{id}',[UserController::class,'delete']);
 
 // login
 Route::get('login',[UserController::class,'login']);
+
 Route::post('login_check',[UserController::class,'login_check']);
 
-Route::get('dashboard',[UserController::class,'dashboard']);
+Route::get('dashboard',[UserController::class,'dashboard'])->middleware("auth");
 
-?>
+Route::get('all-teachers',[UserController::class,'all'])->middleware("My","auth");
+
+// collections
+Route::get('collect',[UserController::class,'collect']);
+
+Route::get('logout',[UserController::class,'logout']);
